@@ -510,12 +510,15 @@ function criarMod9() {
     return div;
 }
 
+// ========= MÓDULO 10 - 3º PELOTÃO (HGCA) - MODIFICADO =========
 function criarMod10() {
     const div = document.createElement('div');
     div.className = 'section-card';
     div.appendChild(campoData('DATA', 'm10_data'));
     div.appendChild(campoHora('HORÁRIO', 'm10_horaIni'));
     div.appendChild(criarListaNome('PESSOAL DE SERVIÇO', 'm10_pessoalList', 'm10_pessoalInput'));
+    // ADICIONADO CAMPO PERMUTAS AQUI
+    div.appendChild(criarListaPermuta('PERMUTAS', 'm10_permutaList', 'm10_subInput', 'm10_subdoInput'));
     div.appendChild(criarListaNome('CUSTODIADOS', 'm10_custodiadosList', 'm10_custodiadosInput'));
     div.appendChild(campo('OBSERVAÇÃO', 'm10_obs', 'textarea'));
     return div;
@@ -749,6 +752,8 @@ function enviarModulo(modId) {
         addCampo('DATA', document.getElementById('m10_data')?.value);
         addCampo('HORÁRIO', document.getElementById('m10_horaIni')?.value);
         addLista('PESSOAL DE SERVIÇO', 'm10_pessoalList');
+        // ADICIONADO PERMUTAS AQUI
+        addListaPares('PERMUTAS', 'm10_permutaList');
         addLista('CUSTODIADOS', 'm10_custodiadosList');
         addCampo('OBSERVAÇÃO', document.getElementById('m10_obs')?.value);
     } else if (modId === 'mod11') {
