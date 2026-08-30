@@ -367,6 +367,7 @@ function criarMod1() {
     return div;
 }
 
+// ========= MÓDULO 2 - EVENTO (MODIFICADO) =========
 function criarMod2() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -375,6 +376,8 @@ function criarMod2() {
     div.appendChild(campoHora('HORÁRIO', 'm2_horaIni'));
     div.appendChild(campo('LOCAL', 'm2_local'));
     div.appendChild(campo('COMANDANTE', 'm2_responsavel'));
+    // ADICIONADO CAMPO RECURSO AQUI
+    div.appendChild(campo('RECURSO', 'm2_recurso'));
     div.appendChild(campoNumero('QTD DE POLICIAIS', 'm2_policiais'));
     div.appendChild(campoNumero('QTD DE VTR', 'm2_vtr'));
     div.appendChild(campoNumero('QTD DE PATRULHAS', 'm2_patrulhas'));
@@ -656,6 +659,8 @@ function enviarModulo(modId) {
         addCampo('HORÁRIO', document.getElementById('m2_horaIni')?.value);
         addCampo('LOCAL', document.getElementById('m2_local')?.value);
         addCampo('COMANDANTE', document.getElementById('m2_responsavel')?.value);
+        // ADICIONADO RECURSO AQUI
+        addCampo('RECURSO', document.getElementById('m2_recurso')?.value);
         addCampo('QTD DE POLICIAIS', document.getElementById('m2_policiais')?.value);
         addCampo('QTD DE VTR', document.getElementById('m2_vtr')?.value);
         addCampo('QTD DE PATRULHAS', document.getElementById('m2_patrulhas')?.value);
