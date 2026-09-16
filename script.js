@@ -5,7 +5,7 @@ const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
 const ano = dataAtual.getFullYear();
 const dataFormatada = `${dia}/${mes}/${ano}`;
 
-// ========= 13 MÓDULOS =========
+// ========= 14 MÓDULOS (ADICIONADO mod14) =========
 const modulos = [
     { id: 'mod1', nome: 'COORDENADOR DE SERVIÇO', icone: 'fa-user-tie' },
     { id: 'mod2', nome: 'EVENTO', icone: 'fa-clipboard-list' },
@@ -19,7 +19,8 @@ const modulos = [
     { id: 'mod9', nome: '2º PELOTÃO (ESCOLTA SERRINHA)', icone: 'fa-people-arrows' },
     { id: 'mod10', nome: '3º PELOTÃO (HGCA)', icone: 'fa-hospital-alt' },
     { id: 'mod11', nome: '4º PELOTÃO (ESCOLTA SEDE)', icone: 'fa-people-arrows' },
-    { id: 'mod12', nome: '5º PELOTÃO (GIRP)', icone: 'fa-car' }
+    { id: 'mod12', nome: '5º PELOTÃO (GIRP)', icone: 'fa-car' },
+    { id: 'mod14', nome: '5º PELOTÃO (GIRP-ESCOLTA)', icone: 'fa-people-arrows' }
 ];
 
 // Renderizar grid
@@ -65,6 +66,7 @@ function abrirModulo(modId) {
         case 'mod11': container.appendChild(criarMod11()); break;
         case 'mod12': container.appendChild(criarMod12()); break;
         case 'mod13': container.appendChild(criarMod13()); break;
+        case 'mod14': container.appendChild(criarMod14()); break;
     }
 
     document.getElementById('btnEnviarModulo').onclick = () => enviarModulo(modId);
@@ -337,7 +339,7 @@ function getPairs(listId) {
         .map(el => el.textContent.replace('✕', '').trim()).join('; ');
 }
 
-// ========= CRIAÇÃO DOS 13 MÓDULOS =========
+// ========= CRIAÇÃO DOS MÓDULOS =========
 
 // ========= MÓDULO 1 - COORDENADOR DE SERVIÇO (MODIFICADO) =========
 function criarMod1() {
@@ -538,6 +540,7 @@ function criarMod10() {
     return div;
 }
 
+// ========= MÓDULO 11 - 4º PELOTÃO (ESCOLTA SEDE) =========
 function criarMod11() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -578,6 +581,21 @@ function criarMod13() {
     div.appendChild(criarListaPermuta('PERMUTAS', 'm13_permutaList', 'm13_subInput', 'm13_subdoInput'));
     div.appendChild(criarListaNome('FOLGA', 'm13_folgaList', 'm13_folgaInput'));
     div.appendChild(campo('OBSERVAÇÃO', 'm13_obs', 'textarea'));
+    return div;
+}
+
+// ========= MÓDULO 14 - 5º PELOTÃO (GIRP-ESCOLTA) - NOVO =========
+function criarMod14() {
+    const div = document.createElement('div');
+    div.className = 'section-card';
+    div.appendChild(campoData('DATA', 'm14_data'));
+    div.appendChild(campoHora('HORÁRIO', 'm14_horaIni'));
+    div.appendChild(campo('LOCAL', 'm14_local'));
+    div.appendChild(criarListaNome('EFETIVO', 'm14_efetivoList', 'm14_efetivoInput'));
+    div.appendChild(campo('VEICULO UTILIZADO', 'm14_veiculo'));
+    div.appendChild(campoNumero('QTD DE ESCOLTADOS', 'm14_qtdEscoltados'));
+    div.appendChild(campo('SAÍDA', 'm14_saida'));
+    div.appendChild(campo('OBSERVAÇÃO', 'm14_obs', 'textarea'));
     return div;
 }
 
@@ -655,24 +673,18 @@ function enviarModulo(modId) {
         addCampo('SALA DE MEIOS', document.getElementById('m1_salaMeios')?.value);
         addCampo('MOTORISTA', document.getElementById('m1_motorista')?.value);
         addLista('RECEPÇÃO', 'm1_recepcaoList');
-        // ALTERADO: VTR (PREFIXO)
         addCampo('VTR (PREFIXO)', document.getElementById('m1_vtr')?.value);
         addCampo('QTD DE PM\'S NA VTR', document.getElementById('m1_qtdPmVtr')?.value);
         addCampo('HGCA QTD PM\'S 7H-19H', document.getElementById('m1_hgcaDia')?.value);
         addCampo('HGCA QTD PM\'S 19H-7H', document.getElementById('m1_hgcaNoite')?.value);
         addCampo('ESCOLTA QTD PM\'S', document.getElementById('m1_escolta')?.value);
-        // ALTERADO: GIRP VTR (PREFIXO)
         addCampo('GIRP VTR (PREFIXO)', document.getElementById('m1_girpVtr')?.value);
         addCampo('GIRP QTD PM\'S', document.getElementById('m1_girpQtd')?.value);
-        // ALTERADO: MOTOS VTR (PREFIXO)
         addCampo('MOTOS VTR (PREFIXO)', document.getElementById('m1_motoVtr')?.value);
         addCampo('MOTOCICLISTAS QTD PM\'S', document.getElementById('m1_motoQtd')?.value);
-        // ALTERADO: VTR 4 RODAS (QTD)
         addCampo('VTR 4 RODAS (QTD)', document.getElementById('m1_vtr4')?.value);
-        // ALTERADO: VTR 2 RODAS (QTD)
         addCampo('VTR 2 RODAS (QTD)', document.getElementById('m1_vtr2')?.value);
         addCampo('TOTAL POLICIAIS', document.getElementById('m1_total')?.value);
-        // ADICIONADO: TOTAL DE POLICIAIS 24h
         addCampo('TOTAL DE POLICIAIS 24h', document.getElementById('m1_total24h')?.value);
         addCampo('OBSERVAÇÃO', document.getElementById('m1_obs')?.value);
     } else if (modId === 'mod2') {
@@ -681,7 +693,6 @@ function enviarModulo(modId) {
         addCampo('HORÁRIO', document.getElementById('m2_horaIni')?.value);
         addCampo('LOCAL', document.getElementById('m2_local')?.value);
         addCampo('COMANDANTE', document.getElementById('m2_responsavel')?.value);
-        // ADICIONADO RECURSO AQUI
         addCampo('RECURSO', document.getElementById('m2_recurso')?.value);
         addCampo('QTD DE POLICIAIS', document.getElementById('m2_policiais')?.value);
         addCampo('QTD DE VTR', document.getElementById('m2_vtr')?.value);
@@ -712,7 +723,6 @@ function enviarModulo(modId) {
         addListaEscolta('ESCOLTADOS', 'm4_escoltaList');
         addCampo('OBSERVAÇÃO', document.getElementById('m4_obs')?.value);
     } else if (modId === 'mod5') {
-        // ADICIONADO CAMPO OPERAÇÃO AQUI
         addCampo('OPERAÇÃO', document.getElementById('m5_operacao')?.value);
         addCampo('TIPO DE OCORRÊNCIA', document.getElementById('m5_tipo')?.value);
         addCampo('DATA', document.getElementById('m5_data')?.value);
@@ -781,7 +791,6 @@ function enviarModulo(modId) {
         addCampo('DATA', document.getElementById('m10_data')?.value);
         addCampo('HORÁRIO', document.getElementById('m10_horaIni')?.value);
         addLista('PESSOAL DE SERVIÇO', 'm10_pessoalList');
-        // ADICIONADO PERMUTAS AQUI
         addListaPares('PERMUTAS', 'm10_permutaList');
         addLista('CUSTODIADOS', 'm10_custodiadosList');
         addCampo('OBSERVAÇÃO', document.getElementById('m10_obs')?.value);
@@ -813,6 +822,15 @@ function enviarModulo(modId) {
         addListaPares('PERMUTAS', 'm13_permutaList');
         addLista('FOLGA', 'm13_folgaList');
         addCampo('OBSERVAÇÃO', document.getElementById('m13_obs')?.value);
+    } else if (modId === 'mod14') {
+        addCampo('DATA', document.getElementById('m14_data')?.value);
+        addCampo('HORÁRIO', document.getElementById('m14_horaIni')?.value);
+        addCampo('LOCAL', document.getElementById('m14_local')?.value);
+        addLista('EFETIVO', 'm14_efetivoList');
+        addCampo('VEICULO UTILIZADO', document.getElementById('m14_veiculo')?.value);
+        addCampo('QTD DE ESCOLTADOS', document.getElementById('m14_qtdEscoltados')?.value);
+        addCampo('SAÍDA', document.getElementById('m14_saida')?.value);
+        addCampo('OBSERVAÇÃO', document.getElementById('m14_obs')?.value);
     }
 
     relatorio += `\n🌵 *ATALAIA DO SERTÃO* 🌵\n*"Vigiar, Guardar e Proteger"*`;
