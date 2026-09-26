@@ -5,7 +5,7 @@ const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
 const ano = dataAtual.getFullYear();
 const dataFormatada = `${dia}/${mes}/${ano}`;
 
-// ========= 14 MÓDULOS (ADICIONADO mod14) =========
+// ========= 14 MÓDULOS =========
 const modulos = [
     { id: 'mod1', nome: 'COORDENADOR DE SERVIÇO', icone: 'fa-user-tie' },
     { id: 'mod2', nome: 'EVENTO', icone: 'fa-clipboard-list' },
@@ -76,9 +76,10 @@ function abrirModulo(modId) {
 function campo(label, id, tipo = 'text', placeholder = '', valor = '') {
     const div = document.createElement('div');
     div.className = 'field-group';
-    let input = `<input type="${tipo}" id="${id}" placeholder="${placeholder}" value="${valor}">`;
+    // ADICIONADO: style="text-transform: uppercase" para forçar maiúsculas visualmente
+    let input = `<input type="${tipo}" id="${id}" placeholder="${placeholder}" value="${valor}" style="text-transform: uppercase;">`;
     if (tipo === 'textarea') {
-        input = `<textarea id="${id}" rows="2" placeholder="${placeholder}">${valor}</textarea>`;
+        input = `<textarea id="${id}" rows="2" placeholder="${placeholder}" style="text-transform: uppercase;">${valor}</textarea>`;
     }
     div.innerHTML = `<label>${label}</label>${input}`;
     return div;
@@ -118,6 +119,7 @@ function criarListaNome(label, listId, inputId) {
     input.type = 'text';
     input.placeholder = 'Nome';
     input.style.flex = '1';
+    input.style.textTransform = 'uppercase'; // ADICIONADO
     input.id = inputId;
     const btn = document.createElement('button');
     btn.className = 'btn-add';
@@ -154,11 +156,13 @@ function criarListaPermuta(label, listId, subInputId, subdoInputId) {
     subInput.type = 'text';
     subInput.placeholder = 'Substituto';
     subInput.style.flex = '1';
+    subInput.style.textTransform = 'uppercase'; // ADICIONADO
     subInput.id = subInputId;
     const subdoInput = document.createElement('input');
     subdoInput.type = 'text';
     subdoInput.placeholder = 'Substituído';
     subdoInput.style.flex = '1';
+    subdoInput.style.textTransform = 'uppercase'; // ADICIONADO
     subdoInput.id = subdoInputId;
 
     const btn = document.createElement('button');
@@ -198,16 +202,19 @@ function criarListaEscolta(label, listId, nomeId, sitId, localId) {
     nomeInput.type = 'text';
     nomeInput.placeholder = 'Nome';
     nomeInput.style.flex = '1';
+    nomeInput.style.textTransform = 'uppercase'; // ADICIONADO
     nomeInput.id = nomeId;
     const sitInput = document.createElement('input');
     sitInput.type = 'text';
     sitInput.placeholder = 'Situação';
     sitInput.style.flex = '1';
+    sitInput.style.textTransform = 'uppercase'; // ADICIONADO
     sitInput.id = sitId;
     const localInput = document.createElement('input');
     localInput.type = 'text';
     localInput.placeholder = 'Local';
     localInput.style.flex = '1';
+    localInput.style.textTransform = 'uppercase'; // ADICIONADO
     localInput.id = localId;
 
     const btn = document.createElement('button');
@@ -248,11 +255,13 @@ function criarListaOcorrencia(label, listId, nomeId, rgId) {
     nomeInput.type = 'text';
     nomeInput.placeholder = 'Nome';
     nomeInput.style.flex = '1';
+    nomeInput.style.textTransform = 'uppercase'; // ADICIONADO
     nomeInput.id = nomeId;
     const rgInput = document.createElement('input');
     rgInput.type = 'text';
     rgInput.placeholder = 'RG ou CPF';
     rgInput.style.flex = '1';
+    rgInput.style.textTransform = 'uppercase'; // ADICIONADO
     rgInput.id = rgId;
 
     const btn = document.createElement('button');
@@ -272,7 +281,8 @@ function addNameToList(listId, inputId) {
     const list = document.getElementById(listId);
     const input = document.getElementById(inputId);
     if (!input || input.value.trim() === '') return;
-    const name = input.value.trim();
+    // ALTERADO: toUpperCase() para converter em maiúsculo
+    const name = input.value.trim().toUpperCase();
     const tag = document.createElement('span');
     tag.className = 'name-tag';
     const count = list.children.length + 1;
@@ -289,7 +299,10 @@ function addPairToList(listId, subId, subdoId) {
     const item = document.createElement('span');
     item.className = 'pair-item';
     const count = list.children.length + 1;
-    item.innerHTML = `${count}. <span class="sub-label">Substituto:</span> ${sub.value || '-'} | <span class="sub-label">Substituído:</span> ${subdo.value || '-'} <i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
+    // ALTERADO: toUpperCase() para converter em maiúsculo
+    const subTexto = sub.value.trim().toUpperCase() || '-';
+    const subdoTexto = subdo.value.trim().toUpperCase() || '-';
+    item.innerHTML = `${count}. <span class="sub-label">Substituto:</span> ${subTexto} | <span class="sub-label">Substituído:</span> ${subdoTexto} <i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
     list.appendChild(item);
     sub.value = '';
     subdo.value = '';
@@ -304,7 +317,11 @@ function addEscoltaToList(listId, nomeId, sitId, localId) {
     const item = document.createElement('span');
     item.className = 'pair-item';
     const count = list.children.length + 1;
-    item.innerHTML = `${count}. <strong>${nome.value}</strong> | Situação: ${sit.value || '-'} | Local: ${local.value || '-'} <i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
+    // ALTERADO: toUpperCase() para converter em maiúsculo
+    const nomeTexto = nome.value.trim().toUpperCase();
+    const sitTexto = sit.value.trim().toUpperCase() || '-';
+    const localTexto = local.value.trim().toUpperCase() || '-';
+    item.innerHTML = `${count}. <strong>${nomeTexto}</strong> | Situação: ${sitTexto} | Local: ${localTexto} <i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
     list.appendChild(item);
     nome.value = '';
     sit.value = '';
@@ -319,7 +336,10 @@ function addOcorrenciaToList(listId, nomeId, rgId) {
     const item = document.createElement('span');
     item.className = 'pair-item';
     const count = list.children.length + 1;
-    item.innerHTML = `${count}. <strong>${nome.value}</strong> | RG/CPF: ${rg.value || '-'} <i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
+    // ALTERADO: toUpperCase() para converter em maiúsculo
+    const nomeTexto = nome.value.trim().toUpperCase();
+    const rgTexto = rg.value.trim().toUpperCase() || '-';
+    item.innerHTML = `${count}. <strong>${nomeTexto}</strong> | RG/CPF: ${rgTexto} <i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
     list.appendChild(item);
     nome.value = '';
     rg.value = '';
@@ -354,24 +374,18 @@ function criarMod1() {
     div.appendChild(campo('SALA DE MEIOS', 'm1_salaMeios'));
     div.appendChild(campo('MOTORISTA', 'm1_motorista'));
     div.appendChild(criarListaNome('RECEPÇÃO', 'm1_recepcaoList', 'm1_recepcaoInput'));
-    // ALTERADO: VTR agora é VTR (PREFIXO)
     div.appendChild(campo('VTR (PREFIXO)', 'm1_vtr'));
     div.appendChild(campoNumero('QTD DE PM\'S NA VTR', 'm1_qtdPmVtr'));
     div.appendChild(campoNumero('HGCA QTD PM\'S 7H-19H', 'm1_hgcaDia'));
     div.appendChild(campoNumero('HGCA QTD PM\'S 19H-7H', 'm1_hgcaNoite'));
     div.appendChild(campoNumero('ESCOLTA QTD PM\'S', 'm1_escolta'));
-    // ALTERADO: GIRP VTR agora é GIRP VTR (PREFIXO)
     div.appendChild(campo('GIRP VTR (PREFIXO)', 'm1_girpVtr'));
     div.appendChild(campoNumero('GIRP QTD PM\'S', 'm1_girpQtd'));
-    // ALTERADO: MOTOS VTR agora é MOTOS VTR (PREFIXO)
     div.appendChild(campo('MOTOS VTR (PREFIXO)', 'm1_motoVtr'));
     div.appendChild(campoNumero('MOTOCICLISTAS QTD PM\'S', 'm1_motoQtd'));
-    // ALTERADO: VTR 4 RODAS agora é VTR 4 RODAS (QTD)
     div.appendChild(campoNumero('VTR 4 RODAS (QTD)', 'm1_vtr4'));
-    // ALTERADO: VTR 2 RODAS agora é VTR 2 RODAS (QTD)
     div.appendChild(campoNumero('VTR 2 RODAS (QTD)', 'm1_vtr2'));
     div.appendChild(campoNumero('TOTAL POLICIAIS', 'm1_total'));
-    // ADICIONADO: TOTAL DE POLICIAIS 24h
     div.appendChild(campoNumero('TOTAL DE POLICIAIS 24h', 'm1_total24h'));
     div.appendChild(campo('OBSERVAÇÃO', 'm1_obs', 'textarea'));
     return div;
@@ -386,7 +400,6 @@ function criarMod2() {
     div.appendChild(campoHora('HORÁRIO', 'm2_horaIni'));
     div.appendChild(campo('LOCAL', 'm2_local'));
     div.appendChild(campo('COMANDANTE', 'm2_responsavel'));
-    // ADICIONADO CAMPO RECURSO AQUI
     div.appendChild(campo('RECURSO', 'm2_recurso'));
     div.appendChild(campoNumero('QTD DE POLICIAIS', 'm2_policiais'));
     div.appendChild(campoNumero('QTD DE VTR', 'm2_vtr'));
@@ -433,7 +446,6 @@ function criarMod4() {
 function criarMod5() {
     const div = document.createElement('div');
     div.className = 'section-card';
-    // ADICIONADO CAMPO OPERAÇÃO AQUI
     div.appendChild(campo('OPERAÇÃO', 'm5_operacao'));
     div.appendChild(campo('TIPO DE OCORRÊNCIA', 'm5_tipo'));
     div.appendChild(campoData('DATA', 'm5_data'));
@@ -451,13 +463,12 @@ function criarMod5() {
     return div;
 }
 
-// ========= MÓDULO 6 - 1º PELOTÃO (GUARDA/MEIOS) - MODIFICADO =========
+// ========= MÓDULO 6 - 1º PELOTÃO (GUARDA/MEIOS) =========
 function criarMod6() {
     const div = document.createElement('div');
     div.className = 'section-card';
     div.appendChild(campoData('DATA', 'm6_data'));
     div.appendChild(campoHora('HORÁRIO', 'm6_horaIni'));
-    // ADICIONANDO ESPAÇO VISUAL (margem extra)
     const spacer = document.createElement('div');
     spacer.style.marginBottom = '8px';
     div.appendChild(spacer);
@@ -526,14 +537,13 @@ function criarMod9() {
     return div;
 }
 
-// ========= MÓDULO 10 - 3º PELOTÃO (HGCA) - MODIFICADO =========
+// ========= MÓDULO 10 - 3º PELOTÃO (HGCA) =========
 function criarMod10() {
     const div = document.createElement('div');
     div.className = 'section-card';
     div.appendChild(campoData('DATA', 'm10_data'));
     div.appendChild(campoHora('HORÁRIO', 'm10_horaIni'));
     div.appendChild(criarListaNome('PESSOAL DE SERVIÇO', 'm10_pessoalList', 'm10_pessoalInput'));
-    // ADICIONADO CAMPO PERMUTAS AQUI
     div.appendChild(criarListaPermuta('PERMUTAS', 'm10_permutaList', 'm10_subInput', 'm10_subdoInput'));
     div.appendChild(criarListaNome('CUSTODIADOS', 'm10_custodiadosList', 'm10_custodiadosInput'));
     div.appendChild(campo('OBSERVAÇÃO', 'm10_obs', 'textarea'));
@@ -584,7 +594,7 @@ function criarMod13() {
     return div;
 }
 
-// ========= MÓDULO 14 - 5º PELOTÃO (GIRP-ESCOLTA) - NOVO =========
+// ========= MÓDULO 14 - 5º PELOTÃO (GIRP-ESCOLTA) =========
 function criarMod14() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -604,19 +614,20 @@ function enviarModulo(modId) {
     let relatorio = `*POLICIA MILITAR DA BAHIA*\n*CPR-LESTE*\n*Região Maria Quitéria*\n*UOPM: CIPGd-FEIRA DE SANTANA*\n\n`;
     const modulo = modulos.find(m => m.id === modId);
     
-    // ===== ALTERAÇÃO: TÍTULO DO MÓDULO REMOVIDO PARA mod1 e mod2 =====
     if (modId !== 'mod1' && modId !== 'mod2') {
         relatorio += `*${modulo.nome}*\n\n`;
     }
 
     // Função auxiliar para adicionar campo apenas se preenchido
+    // ALTERADO: toUpperCase() para converter em maiúsculo
     function addCampo(label, valor) {
         if (valor && valor.trim() !== '') {
-            relatorio += `*${label}*: ${valor.trim()}\n`;
+            relatorio += `*${label}*: ${valor.trim().toUpperCase()}\n`;
         }
     }
 
     // Função auxiliar para adicionar lista apenas se tiver itens
+    // ALTERADO: toUpperCase() para converter em maiúsculo
     function addLista(label, listId) {
         const itens = getNames(listId);
         if (itens && itens.trim() !== '') {
@@ -624,7 +635,7 @@ function enviarModulo(modId) {
             relatorio += `*${label}*:\n`;
             listaArray.forEach(item => {
                 if (item.trim() !== '') {
-                    relatorio += `  • ${item.trim()}\n`;
+                    relatorio += `  • ${item.trim().toUpperCase()}\n`;
                 }
             });
             relatorio += `\n`;
@@ -632,6 +643,7 @@ function enviarModulo(modId) {
     }
 
     // Função auxiliar para adicionar lista de pares (permutas, etc)
+    // ALTERADO: toUpperCase() para converter em maiúsculo
     function addListaPares(label, listId) {
         const itens = getPairs(listId);
         if (itens && itens.trim() !== '') {
@@ -639,7 +651,7 @@ function enviarModulo(modId) {
             relatorio += `*${label}*:\n`;
             listaArray.forEach(item => {
                 if (item.trim() !== '') {
-                    relatorio += `  • ${item.trim()}\n`;
+                    relatorio += `  • ${item.trim().toUpperCase()}\n`;
                 }
             });
             relatorio += `\n`;
@@ -647,6 +659,7 @@ function enviarModulo(modId) {
     }
 
     // Função auxiliar para adicionar lista de escolta (3 campos)
+    // ALTERADO: toUpperCase() para converter em maiúsculo
     function addListaEscolta(label, listId) {
         const list = document.getElementById(listId);
         if (!list) return;
@@ -654,7 +667,7 @@ function enviarModulo(modId) {
         if (items.length === 0) return;
         relatorio += `*${label}*:\n`;
         items.forEach(item => {
-            const texto = item.textContent.replace('✕', '').trim();
+            const texto = item.textContent.replace('✕', '').trim().toUpperCase();
             if (texto) {
                 relatorio += `  • ${texto}\n`;
             }
@@ -857,7 +870,6 @@ function voltarInicio() {
 if (window.navigator.standalone) {
     document.getElementById('installBanner').style.display = 'none';
 } else {
-    // Mostrar banner apenas em iOS
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     if (isIOS) {
         document.getElementById('installBanner').style.display = 'block';
