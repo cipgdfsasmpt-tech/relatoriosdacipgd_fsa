@@ -627,8 +627,13 @@ function copiarResumoParaMetaAI() {
     const textoOriginal = resumoInput.value.trim();
     
     navigator.clipboard.writeText(textoOriginal).then(() => {
+        // Monta a mensagem com o texto original já pronto para o Meta AI
+        const mensagem = `Melhore este trecho de relatório policial mantendo as informações técnicas:\n\n${textoOriginal}`;
+        
         alert('Texto copiado! Agora cole no Meta AI do WhatsApp e peça para melhorar.');
-        window.open('https://wa.me/', '_blank');
+        
+        // Abre o app do WhatsApp usando o mesmo padrão do botão ENVIAR ESTE MÓDULO
+        window.open('https://wa.me/?text=' + encodeURIComponent(mensagem), '_blank');
     }).catch(() => {
         alert('Não foi possível copiar automaticamente. Selecione o texto manualmente.');
     });
