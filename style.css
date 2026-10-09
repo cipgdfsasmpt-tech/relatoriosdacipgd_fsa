@@ -307,6 +307,52 @@ body {
     font-size: 0.8rem;
     margin-top: 16px;
 }
+
+/* ========= ESTILOS PARA BOTÕES DO META AI ========= */
+.meta-ai-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-meta-ai, .btn-meta-ai-substituir {
+    flex: 1;
+    min-width: 140px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn-meta-ai {
+    background: #25D366; /* Verde WhatsApp */
+    color: white;
+}
+
+.btn-meta-ai:hover {
+    background: #1da851;
+    transform: scale(1.02);
+}
+
+.btn-meta-ai-substituir {
+    background: #7b5a3b; /* Marrom do tema */
+    color: white;
+}
+
+.btn-meta-ai-substituir:hover {
+    background: #5f432b;
+    transform: scale(1.02);
+}
+
 @media (max-width: 500px) {
     .header-pm .escudo-texto { width: 50px; height: 50px; font-size: 0.45rem; }
     .header-pm .escudo-texto .pmba { font-size: 0.6rem; }
