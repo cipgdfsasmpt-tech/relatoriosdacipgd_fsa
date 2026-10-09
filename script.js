@@ -76,7 +76,6 @@ function abrirModulo(modId) {
 function campo(label, id, tipo = 'text', placeholder = '', valor = '') {
     const div = document.createElement('div');
     div.className = 'field-group';
-    // ADICIONADO: style="text-transform: uppercase" para forçar maiúsculas visualmente
     let input = `<input type="${tipo}" id="${id}" placeholder="${placeholder}" value="${valor}" style="text-transform: uppercase;">`;
     if (tipo === 'textarea') {
         input = `<textarea id="${id}" rows="2" placeholder="${placeholder}" style="text-transform: uppercase;">${valor}</textarea>`;
@@ -119,7 +118,7 @@ function criarListaNome(label, listId, inputId) {
     input.type = 'text';
     input.placeholder = 'Nome';
     input.style.flex = '1';
-    input.style.textTransform = 'uppercase'; // ADICIONADO
+    input.style.textTransform = 'uppercase';
     input.id = inputId;
     const btn = document.createElement('button');
     btn.className = 'btn-add';
@@ -156,13 +155,13 @@ function criarListaPermuta(label, listId, subInputId, subdoInputId) {
     subInput.type = 'text';
     subInput.placeholder = 'Substituto';
     subInput.style.flex = '1';
-    subInput.style.textTransform = 'uppercase'; // ADICIONADO
+    subInput.style.textTransform = 'uppercase';
     subInput.id = subInputId;
     const subdoInput = document.createElement('input');
     subdoInput.type = 'text';
     subdoInput.placeholder = 'Substituído';
     subdoInput.style.flex = '1';
-    subdoInput.style.textTransform = 'uppercase'; // ADICIONADO
+    subdoInput.style.textTransform = 'uppercase';
     subdoInput.id = subdoInputId;
 
     const btn = document.createElement('button');
@@ -202,19 +201,19 @@ function criarListaEscolta(label, listId, nomeId, sitId, localId) {
     nomeInput.type = 'text';
     nomeInput.placeholder = 'Nome';
     nomeInput.style.flex = '1';
-    nomeInput.style.textTransform = 'uppercase'; // ADICIONADO
+    nomeInput.style.textTransform = 'uppercase';
     nomeInput.id = nomeId;
     const sitInput = document.createElement('input');
     sitInput.type = 'text';
     sitInput.placeholder = 'Situação';
     sitInput.style.flex = '1';
-    sitInput.style.textTransform = 'uppercase'; // ADICIONADO
+    sitInput.style.textTransform = 'uppercase';
     sitInput.id = sitId;
     const localInput = document.createElement('input');
     localInput.type = 'text';
     localInput.placeholder = 'Local';
     localInput.style.flex = '1';
-    localInput.style.textTransform = 'uppercase'; // ADICIONADO
+    localInput.style.textTransform = 'uppercase';
     localInput.id = localId;
 
     const btn = document.createElement('button');
@@ -255,13 +254,13 @@ function criarListaOcorrencia(label, listId, nomeId, rgId) {
     nomeInput.type = 'text';
     nomeInput.placeholder = 'Nome';
     nomeInput.style.flex = '1';
-    nomeInput.style.textTransform = 'uppercase'; // ADICIONADO
+    nomeInput.style.textTransform = 'uppercase';
     nomeInput.id = nomeId;
     const rgInput = document.createElement('input');
     rgInput.type = 'text';
     rgInput.placeholder = 'RG ou CPF';
     rgInput.style.flex = '1';
-    rgInput.style.textTransform = 'uppercase'; // ADICIONADO
+    rgInput.style.textTransform = 'uppercase';
     rgInput.id = rgId;
 
     const btn = document.createElement('button');
@@ -281,7 +280,6 @@ function addNameToList(listId, inputId) {
     const list = document.getElementById(listId);
     const input = document.getElementById(inputId);
     if (!input || input.value.trim() === '') return;
-    // ALTERADO: toUpperCase() para converter em maiúsculo
     const name = input.value.trim().toUpperCase();
     const tag = document.createElement('span');
     tag.className = 'name-tag';
@@ -299,7 +297,6 @@ function addPairToList(listId, subId, subdoId) {
     const item = document.createElement('span');
     item.className = 'pair-item';
     const count = list.children.length + 1;
-    // ALTERADO: toUpperCase() para converter em maiúsculo
     const subTexto = sub.value.trim().toUpperCase() || '-';
     const subdoTexto = subdo.value.trim().toUpperCase() || '-';
     item.innerHTML = `${count}. <span class="sub-label">Substituto:</span> ${subTexto} | <span class="sub-label">Substituído:</span> ${subdoTexto} <i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
@@ -317,7 +314,6 @@ function addEscoltaToList(listId, nomeId, sitId, localId) {
     const item = document.createElement('span');
     item.className = 'pair-item';
     const count = list.children.length + 1;
-    // ALTERADO: toUpperCase() para converter em maiúsculo
     const nomeTexto = nome.value.trim().toUpperCase();
     const sitTexto = sit.value.trim().toUpperCase() || '-';
     const localTexto = local.value.trim().toUpperCase() || '-';
@@ -336,7 +332,6 @@ function addOcorrenciaToList(listId, nomeId, rgId) {
     const item = document.createElement('span');
     item.className = 'pair-item';
     const count = list.children.length + 1;
-    // ALTERADO: toUpperCase() para converter em maiúsculo
     const nomeTexto = nome.value.trim().toUpperCase();
     const rgTexto = rg.value.trim().toUpperCase() || '-';
     item.innerHTML = `${count}. <strong>${nomeTexto}</strong> | RG/CPF: ${rgTexto} <i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
@@ -361,7 +356,6 @@ function getPairs(listId) {
 
 // ========= CRIAÇÃO DOS MÓDULOS =========
 
-// ========= MÓDULO 1 - COORDENADOR DE SERVIÇO (MODIFICADO) =========
 function criarMod1() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -391,7 +385,6 @@ function criarMod1() {
     return div;
 }
 
-// ========= MÓDULO 2 - EVENTO (MODIFICADO) =========
 function criarMod2() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -442,7 +435,7 @@ function criarMod4() {
     return div;
 }
 
-// ========= MÓDULO 5 - OCORRÊNCIA (MODIFICADO) =========
+// ========= MÓDULO 5 - OCORRÊNCIA (COM BOTÕES DO META AI) =========
 function criarMod5() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -456,14 +449,30 @@ function criarMod5() {
     div.appendChild(campo('RECURSO', 'm5_recursos'));
     div.appendChild(criarListaOcorrencia('CONDUZIDOS', 'm5_conduzidosList', 'm5_conduzidosNomeInput', 'm5_conduzidosRgInput'));
     div.appendChild(criarListaOcorrencia('VITIMAS', 'm5_vitimasList', 'm5_vitimasNomeInput', 'm5_vitimasRgInput'));
-    div.appendChild(campo('RESUMO', 'm5_resumo', 'textarea'));
+
+    // Campo de Resumo Personalizado com botões do Meta AI
+    const resumoWrapper = document.createElement('div');
+    resumoWrapper.className = 'field-group';
+    resumoWrapper.innerHTML = `
+        <label>RESUMO</label>
+        <textarea id="m5_resumo" rows="4" placeholder="Descreva a ocorrência..." style="text-transform: uppercase;"></textarea>
+        <div class="meta-ai-actions">
+            <button type="button" class="btn-meta-ai" onclick="copiarResumoParaMetaAI()">
+                <i class="fab fa-whatsapp"></i> Melhorar com Meta AI
+            </button>
+            <button type="button" class="btn-meta-ai-substituir" onclick="substituirResumoMelhorado()">
+                <i class="fas fa-check-circle"></i> Substituir pelo Melhorado
+            </button>
+        </div>
+    `;
+    div.appendChild(resumoWrapper);
+
     div.appendChild(campo('MATERIAL APREENDIDO', 'm5_materiais'));
     div.appendChild(campo('LOCAL DA APRESENTAÇÃO', 'm5_localApresentacao'));
     div.appendChild(campo('FONTE', 'm5_fonte'));
     return div;
 }
 
-// ========= MÓDULO 6 - 1º PELOTÃO (GUARDA/MEIOS) =========
 function criarMod6() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -537,7 +546,6 @@ function criarMod9() {
     return div;
 }
 
-// ========= MÓDULO 10 - 3º PELOTÃO (HGCA) =========
 function criarMod10() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -550,7 +558,6 @@ function criarMod10() {
     return div;
 }
 
-// ========= MÓDULO 11 - 4º PELOTÃO (ESCOLTA SEDE) =========
 function criarMod11() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -594,7 +601,6 @@ function criarMod13() {
     return div;
 }
 
-// ========= MÓDULO 14 - 5º PELOTÃO (GIRP-ESCOLTA) =========
 function criarMod14() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -609,6 +615,39 @@ function criarMod14() {
     return div;
 }
 
+// ========= FUNÇÕES DO META AI (MÓDULO 5) =========
+
+function copiarResumoParaMetaAI() {
+    const resumoInput = document.getElementById('m5_resumo');
+    if (!resumoInput || resumoInput.value.trim() === '') {
+        alert('Por favor, escreva algo no resumo antes de pedir ajuda ao Meta AI.');
+        return;
+    }
+
+    const textoOriginal = resumoInput.value.trim();
+    
+    navigator.clipboard.writeText(textoOriginal).then(() => {
+        alert('Texto copiado! Agora cole no Meta AI do WhatsApp e peça para melhorar.');
+        window.open('https://wa.me/', '_blank');
+    }).catch(() => {
+        alert('Não foi possível copiar automaticamente. Selecione o texto manualmente.');
+    });
+}
+
+function substituirResumoMelhorado() {
+    const resumoInput = document.getElementById('m5_resumo');
+    if (!resumoInput) return;
+
+    const textoMelhorado = prompt('Cole aqui o texto melhorado que o Meta AI gerou:');
+    
+    if (textoMelhorado && textoMelhorado.trim() !== '') {
+        resumoInput.value = textoMelhorado.trim().toUpperCase();
+        alert('Resumo substituído com sucesso!');
+    } else {
+        alert('Nenhum texto foi inserido. O resumo original foi mantido.');
+    }
+}
+
 // ========= ENVIAR MÓDULO =========
 function enviarModulo(modId) {
     let relatorio = `*POLICIA MILITAR DA BAHIA*\n*CPR-LESTE*\n*Região Maria Quitéria*\n*UOPM: CIPGd-FEIRA DE SANTANA*\n\n`;
@@ -618,16 +657,12 @@ function enviarModulo(modId) {
         relatorio += `*${modulo.nome}*\n\n`;
     }
 
-    // Função auxiliar para adicionar campo apenas se preenchido
-    // ALTERADO: toUpperCase() para converter em maiúsculo
     function addCampo(label, valor) {
         if (valor && valor.trim() !== '') {
             relatorio += `*${label}*: ${valor.trim().toUpperCase()}\n`;
         }
     }
 
-    // Função auxiliar para adicionar lista apenas se tiver itens
-    // ALTERADO: toUpperCase() para converter em maiúsculo
     function addLista(label, listId) {
         const itens = getNames(listId);
         if (itens && itens.trim() !== '') {
@@ -642,8 +677,6 @@ function enviarModulo(modId) {
         }
     }
 
-    // Função auxiliar para adicionar lista de pares (permutas, etc)
-    // ALTERADO: toUpperCase() para converter em maiúsculo
     function addListaPares(label, listId) {
         const itens = getPairs(listId);
         if (itens && itens.trim() !== '') {
@@ -658,8 +691,6 @@ function enviarModulo(modId) {
         }
     }
 
-    // Função auxiliar para adicionar lista de escolta (3 campos)
-    // ALTERADO: toUpperCase() para converter em maiúsculo
     function addListaEscolta(label, listId) {
         const list = document.getElementById(listId);
         if (!list) return;
@@ -675,7 +706,6 @@ function enviarModulo(modId) {
         relatorio += `\n`;
     }
 
-    // Coletar campos na ordem correta para cada módulo
     if (modId === 'mod1') {
         addCampo('COORDENADOR DE SERVIÇO', document.getElementById('m1_coordenador')?.value);
         addCampo('TELEFONE', document.getElementById('m1_telefone')?.value);
