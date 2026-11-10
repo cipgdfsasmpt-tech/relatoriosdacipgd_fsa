@@ -356,6 +356,7 @@ function getPairs(listId) {
 
 // ========= CRIAÇÃO DOS MÓDULOS =========
 
+// ========= MÓDULO 1 - COORDENADOR DE SERVIÇO =========
 function criarMod1() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -385,6 +386,7 @@ function criarMod1() {
     return div;
 }
 
+// ========= MÓDULO 2 - EVENTO =========
 function criarMod2() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -435,7 +437,7 @@ function criarMod4() {
     return div;
 }
 
-// ========= MÓDULO 5 - OCORRÊNCIA (COM BOTÕES DO META AI) =========
+// ========= MÓDULO 5 - OCORRÊNCIA =========
 function criarMod5() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -449,30 +451,14 @@ function criarMod5() {
     div.appendChild(campo('RECURSO', 'm5_recursos'));
     div.appendChild(criarListaOcorrencia('CONDUZIDOS', 'm5_conduzidosList', 'm5_conduzidosNomeInput', 'm5_conduzidosRgInput'));
     div.appendChild(criarListaOcorrencia('VITIMAS', 'm5_vitimasList', 'm5_vitimasNomeInput', 'm5_vitimasRgInput'));
-
-    // Campo de Resumo Personalizado com botões do Meta AI
-    const resumoWrapper = document.createElement('div');
-    resumoWrapper.className = 'field-group';
-    resumoWrapper.innerHTML = `
-        <label>RESUMO</label>
-        <textarea id="m5_resumo" rows="4" placeholder="Descreva a ocorrência..." style="text-transform: uppercase;"></textarea>
-        <div class="meta-ai-actions">
-            <button type="button" class="btn-meta-ai" onclick="copiarResumoParaMetaAI()">
-                <i class="fab fa-whatsapp"></i> Melhorar com Meta AI
-            </button>
-            <button type="button" class="btn-meta-ai-substituir" onclick="substituirResumoMelhorado()">
-                <i class="fas fa-check-circle"></i> Substituir pelo Melhorado
-            </button>
-        </div>
-    `;
-    div.appendChild(resumoWrapper);
-
+    div.appendChild(campo('RESUMO', 'm5_resumo', 'textarea'));
     div.appendChild(campo('MATERIAL APREENDIDO', 'm5_materiais'));
     div.appendChild(campo('LOCAL DA APRESENTAÇÃO', 'm5_localApresentacao'));
     div.appendChild(campo('FONTE', 'm5_fonte'));
     return div;
 }
 
+// ========= MÓDULO 6 - 1º PELOTÃO (GUARDA/MEIOS) =========
 function criarMod6() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -546,6 +532,7 @@ function criarMod9() {
     return div;
 }
 
+// ========= MÓDULO 10 - 3º PELOTÃO (HGCA) =========
 function criarMod10() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -558,6 +545,7 @@ function criarMod10() {
     return div;
 }
 
+// ========= MÓDULO 11 - 4º PELOTÃO (ESCOLTA SEDE) - MODIFICADO =========
 function criarMod11() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -565,6 +553,8 @@ function criarMod11() {
     div.appendChild(campoHora('HORÁRIO', 'm11_horaIni'));
     div.appendChild(campo('LOCAL', 'm11_local'));
     div.appendChild(criarListaNome('EFETIVO', 'm11_efetivoList', 'm11_efetivoInput'));
+    // ADICIONADO CAMPO PERMUTAS AQUI
+    div.appendChild(criarListaPermuta('PERMUTAS', 'm11_permutaList', 'm11_subInput', 'm11_subdoInput'));
     div.appendChild(campo('VEICULO UTILIZADO', 'm11_veiculo'));
     div.appendChild(campoNumero('QTD DE ESCOLTADOS', 'm11_qtdEscoltados'));
     div.appendChild(campo('SAÍDA', 'm11_saida'));
@@ -601,6 +591,7 @@ function criarMod13() {
     return div;
 }
 
+// ========= MÓDULO 14 - 5º PELOTÃO (GIRP-ESCOLTA) =========
 function criarMod14() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -613,44 +604,6 @@ function criarMod14() {
     div.appendChild(campo('SAÍDA', 'm14_saida'));
     div.appendChild(campo('OBSERVAÇÃO', 'm14_obs', 'textarea'));
     return div;
-}
-
-// ========= FUNÇÕES DO META AI (MÓDULO 5) =========
-
-function copiarResumoParaMetaAI() {
-    const resumoInput = document.getElementById('m5_resumo');
-    if (!resumoInput || resumoInput.value.trim() === '') {
-        alert('Por favor, escreva algo no resumo antes de pedir ajuda ao Meta AI.');
-        return;
-    }
-
-    const textoOriginal = resumoInput.value.trim();
-    
-    navigator.clipboard.writeText(textoOriginal).then(() => {
-        // Monta a mensagem com o texto original já pronto para o Meta AI
-        const mensagem = `Melhore este trecho de relatório policial mantendo as informações técnicas:\n\n${textoOriginal}`;
-        
-        alert('Texto copiado! Agora cole no Meta AI do WhatsApp e peça para melhorar.');
-        
-        // Abre o app do WhatsApp usando o mesmo padrão do botão ENVIAR ESTE MÓDULO
-        window.open('https://wa.me/?text=' + encodeURIComponent(mensagem), '_blank');
-    }).catch(() => {
-        alert('Não foi possível copiar automaticamente. Selecione o texto manualmente.');
-    });
-}
-
-function substituirResumoMelhorado() {
-    const resumoInput = document.getElementById('m5_resumo');
-    if (!resumoInput) return;
-
-    const textoMelhorado = prompt('Cole aqui o texto melhorado que o Meta AI gerou:');
-    
-    if (textoMelhorado && textoMelhorado.trim() !== '') {
-        resumoInput.value = textoMelhorado.trim().toUpperCase();
-        alert('Resumo substituído com sucesso!');
-    } else {
-        alert('Nenhum texto foi inserido. O resumo original foi mantido.');
-    }
 }
 
 // ========= ENVIAR MÓDULO =========
@@ -847,6 +800,8 @@ function enviarModulo(modId) {
         addCampo('HORÁRIO', document.getElementById('m11_horaIni')?.value);
         addCampo('LOCAL', document.getElementById('m11_local')?.value);
         addLista('EFETIVO', 'm11_efetivoList');
+        // ADICIONADO PERMUTAS AQUI
+        addListaPares('PERMUTAS', 'm11_permutaList');
         addCampo('VEICULO UTILIZADO', document.getElementById('m11_veiculo')?.value);
         addCampo('QTD DE ESCOLTADOS', document.getElementById('m11_qtdEscoltados')?.value);
         addCampo('SAÍDA', document.getElementById('m11_saida')?.value);
