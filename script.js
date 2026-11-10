@@ -518,6 +518,7 @@ function criarMod8() {
     return div;
 }
 
+// ========= MÓDULO 9 - 2º PELOTÃO (ESCOLTA SERRINHA) - MODIFICADO =========
 function criarMod9() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -525,6 +526,8 @@ function criarMod9() {
     div.appendChild(campoHora('HORÁRIO', 'm9_horaIni'));
     div.appendChild(campo('LOCAL', 'm9_local'));
     div.appendChild(criarListaNome('EFETIVO', 'm9_efetivoList', 'm9_efetivoInput'));
+    // ADICIONADO CAMPO PERMUTAS AQUI
+    div.appendChild(criarListaPermuta('PERMUTAS', 'm9_permutaList', 'm9_subInput', 'm9_subdoInput'));
     div.appendChild(campo('VEICULO UTILIZADO', 'm9_veiculo'));
     div.appendChild(campoNumero('QTD DE ESCOLTADOS', 'm9_qtdEscoltados'));
     div.appendChild(campo('SAÍDA', 'm9_saida'));
@@ -545,7 +548,7 @@ function criarMod10() {
     return div;
 }
 
-// ========= MÓDULO 11 - 4º PELOTÃO (ESCOLTA SEDE) - MODIFICADO =========
+// ========= MÓDULO 11 - 4º PELOTÃO (ESCOLTA SEDE) =========
 function criarMod11() {
     const div = document.createElement('div');
     div.className = 'section-card';
@@ -553,7 +556,6 @@ function criarMod11() {
     div.appendChild(campoHora('HORÁRIO', 'm11_horaIni'));
     div.appendChild(campo('LOCAL', 'm11_local'));
     div.appendChild(criarListaNome('EFETIVO', 'm11_efetivoList', 'm11_efetivoInput'));
-    // ADICIONADO CAMPO PERMUTAS AQUI
     div.appendChild(criarListaPermuta('PERMUTAS', 'm11_permutaList', 'm11_subInput', 'm11_subdoInput'));
     div.appendChild(campo('VEICULO UTILIZADO', 'm11_veiculo'));
     div.appendChild(campoNumero('QTD DE ESCOLTADOS', 'm11_qtdEscoltados'));
@@ -784,6 +786,8 @@ function enviarModulo(modId) {
         addCampo('HORÁRIO', document.getElementById('m9_horaIni')?.value);
         addCampo('LOCAL', document.getElementById('m9_local')?.value);
         addLista('EFETIVO', 'm9_efetivoList');
+        // ADICIONADO PERMUTAS AQUI
+        addListaPares('PERMUTAS', 'm9_permutaList');
         addCampo('VEICULO UTILIZADO', document.getElementById('m9_veiculo')?.value);
         addCampo('QTD DE ESCOLTADOS', document.getElementById('m9_qtdEscoltados')?.value);
         addCampo('SAÍDA', document.getElementById('m9_saida')?.value);
@@ -800,7 +804,6 @@ function enviarModulo(modId) {
         addCampo('HORÁRIO', document.getElementById('m11_horaIni')?.value);
         addCampo('LOCAL', document.getElementById('m11_local')?.value);
         addLista('EFETIVO', 'm11_efetivoList');
-        // ADICIONADO PERMUTAS AQUI
         addListaPares('PERMUTAS', 'm11_permutaList');
         addCampo('VEICULO UTILIZADO', document.getElementById('m11_veiculo')?.value);
         addCampo('QTD DE ESCOLTADOS', document.getElementById('m11_qtdEscoltados')?.value);
